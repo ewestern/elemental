@@ -48,6 +48,7 @@ module.exports = React.createClass({
 			minHeight: 1,
 			paddingLeft: (gutter / 2),
 			paddingRight: (gutter / 2),
+			display: 'block'
 		};
 
 		// if no width control is provided fill available space
@@ -74,12 +75,14 @@ module.exports = React.createClass({
 
 		if (!columnStyle.width) {
 			columnStyle.width = '100%';
-		}
+		} 
 
 		if (columnStyle.width in E.fractions) {
 			columnStyle.width = E.fractions[columnStyle.width];
-		}
-
+		} else if (columnStyle.width == 'none') {
+      columnStyle.display = 'none';
+      columnStyle.width = '0';
+    }
 		let props = blacklist(this.props, 'basis', 'gutter', 'style', 'xs', 'sm', 'md', 'lg');
 
 		return <div style={Object.assign(columnStyle, this.props.style)} {...props} />;
